@@ -2,7 +2,7 @@
 FROM node:20.12.0 as builder
 
 #设置工作目录
-WORKDIR /usr/app/nest-admin-front
+WORKDIR /usr/app/nest-admin
 
 # 复制 package.json 和 package-lock.json 文件
 COPY package*.json ./
@@ -17,11 +17,11 @@ RUN npm run build
 FROM nginx:alpine
 
 # 设置工作目录
-WORKDIR /usr/app/nest-admin-front
+WORKDIR /usr/app/nest-admin
 
 
 # 将构建阶段的 dist 目录复制到工作目录
-COPY --from=builder /usr/app/nest-admin-front/dist .
+COPY --from=builder /usr/app/nest-admin/dist .
 
 #暴露80端口
 EXPOSE 80
